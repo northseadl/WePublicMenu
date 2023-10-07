@@ -1,0 +1,24 @@
+syntax = "v1"
+
+info(
+	title: "插件示例接口"
+	desc: "插件示例接口"
+	author: "Northseadl"
+	email: "northseadl@outlook.com"
+	version: "v1"
+)
+
+service PluginTemplate {
+	@handler EmployeeInfo
+	get /employee/info/:id (EmployeeInfoRequest) returns (EmployeeInfoReply)
+}
+
+type (
+	EmployeeInfoRequest {
+		EmployeeId int64 `path:"id"`
+	}
+
+	EmployeeInfoReply {
+		EmployeeName string `form:"employeeName"`
+	}
+)
