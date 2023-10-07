@@ -1,6 +1,6 @@
 Name: plugin-example
-AppId: test
-Secret: test
+AppId: wx4371973ec8f9fa2a
+Secret: bf61af122e99e51db834e44c371f201d
 AESKey: test
 OAuth:
   Callback: "https://wechat-mp.artisan-cloud.com/callback"

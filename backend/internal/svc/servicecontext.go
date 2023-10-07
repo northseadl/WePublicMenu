@@ -12,14 +12,14 @@ import (
 )
 
 type ServiceContext struct {
-	Config           config.Config
+	Config           *config.Config
 	PluginMiddleware rest.Middleware
 	*client.PClient
 	PowerX *powerx.PowerX
 	App    *officialAccount.OfficialAccount
 }
 
-func NewServiceContext(c config.Config) *ServiceContext {
+func NewServiceContext(c *config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:           c,
 		PluginMiddleware: middleware.NewPluginMiddleware().Handle,
@@ -40,6 +40,7 @@ func (c *ServiceContext) Setup() {
 		AESKey:    c.Config.AESKey,
 		HttpDebug: true,
 	})
+
 	c.App = app
 
 	if err != nil {

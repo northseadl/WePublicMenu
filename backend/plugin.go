@@ -28,7 +28,7 @@ func main() {
 	c := config.Config{RestConf: restConf}
 	c.Endpoint = fmt.Sprintf("http://%s", *host)
 	c.Mode = *mode
-	ctx := svc.NewServiceContext(c)
+	ctx := svc.NewServiceContext(&c)
 	handler.RegisterHandlers(server, ctx)
 
 	restPlugin := plugin.ParsePlugin(server, c.RestConf)

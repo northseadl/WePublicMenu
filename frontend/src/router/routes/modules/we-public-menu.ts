@@ -1,7 +1,7 @@
 import { AppRouteRecordRaw } from '@/router/routes/types';
 import { PLUGIN_LAYOUT } from '@/router/routes/base';
 
-const WePubicMenu: AppRouteRecordRaw = {
+const WePublicMenu: AppRouteRecordRaw = {
   path: '/we-public-menu',
   name: 'WePublicMenu',
   redirect: '/we-public-menu/index',
@@ -25,4 +25,4 @@ const WePubicMenu: AppRouteRecordRaw = {
   ],
 };
 
-export default WePubicMenu;
+export default WePublicMenu;
