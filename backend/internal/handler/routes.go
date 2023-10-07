@@ -4,22 +4,34 @@ package handler
 import (
 	"net/http"
 
-	"PluginTemplate/internal/svc"
+	"WePublicMenu/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.PluginMiddleware},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/employee/info/:id",
-					Handler: EmployeeInfoHandler(serverCtx),
-				},
-			}...,
-		),
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/menus-tree",
+				Handler: QueryMenusHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/menus/sync",
+				Handler: SyncMenusHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/menus",
+				Handler: CreateMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/menus",
+				Handler: DeleteMenuHandler(serverCtx),
+			},
+		},
 	)
 }

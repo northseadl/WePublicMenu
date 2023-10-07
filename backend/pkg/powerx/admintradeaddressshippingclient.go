@@ -1,7 +1,7 @@
 package powerx
 
 import (
-	"PluginTemplate/pkg/powerx/powerxtypes"
+	"WePublicMenu/pkg/powerx/powerxtypes"
 	"context"
 	"fmt"
 	"net/http"

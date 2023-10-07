@@ -1,10 +1,10 @@
 package main
 
 import (
-	"PluginTemplate/internal/config"
-	"PluginTemplate/internal/handler"
-	"PluginTemplate/internal/svc"
-	"PluginTemplate/pkg/plugin"
+	"WePublicMenu/internal/config"
+	"WePublicMenu/internal/handler"
+	"WePublicMenu/internal/svc"
+	"WePublicMenu/pkg/plugin"
 	"flag"
 	"fmt"
 	"github.com/zeromicro/go-zero/rest"

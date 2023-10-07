@@ -1,7 +1,7 @@
 package main
 
 import (
-	"PowerXPluginTemplate/ctl/plugin"
+	"PowerXWePublicMenu/ctl/plugin"
 	"fmt"
 	"os"
 

@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"PluginTemplate/pkg/powerx/client"
+	"WePublicMenu/pkg/powerx/client"
 	"net/http"
 )
 

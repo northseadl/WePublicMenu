@@ -1,4 +1,4 @@
-module PowerXPluginTemplate
+module PowerXWePublicMenu
 
 go 1.21
 

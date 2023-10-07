@@ -1,2 +1,8 @@
 Name: plugin-example
-AppKey: abc111222333
+AppId: test
+Secret: test
+AESKey: test
+OAuth:
+  Callback: "https://wechat-mp.artisan-cloud.com/callback"
+  Scopes: [ ]
+HttpDebug: true

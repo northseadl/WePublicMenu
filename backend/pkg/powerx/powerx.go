@@ -1,7 +1,7 @@
 package powerx
 
 import (
-	"PluginTemplate/pkg/powerx/client"
+	"WePublicMenu/pkg/powerx/client"
 )
 
 type PowerX struct {

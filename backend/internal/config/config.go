@@ -10,5 +10,12 @@ type Config struct {
 }
 
 type PowerXPlugin struct {
-	AppKey string `json:"appKey"`
+	AppId  string
+	Secret string
+	AESKey string
+	OAuth  struct {
+		Callback string
+		Scopes   []string
+	}
+	HttpDebug bool
 }

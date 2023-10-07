@@ -8,17 +8,93 @@ info(
 	version: "v1"
 )
 
-service PluginTemplate {
-	@handler EmployeeInfo
-	get /employee/info/:id (EmployeeInfoRequest) returns (EmployeeInfoReply)
+service WePublicMenu {
+	@doc "查询菜单列表"
+	@handler QueryMenus
+	get /menus-tree returns (QueryMenusReply)
+
+	@doc "请求菜单上传链接"
+	@handler SyncMenus
+	post /menus/sync (SyncMenusRequest) returns (SyncMenusReply)
+
+	@doc "创建菜单"
+	@handler CreateMenu
+	post /menus (CreateMenuRequest) returns (CreateMenuReply)
+
+	@doc "删除菜单"
+	@handler DeleteMenu
+	delete /menus returns (DeleteMenuReply)
 }
 
 type (
-	EmployeeInfoRequest {
-		EmployeeId int64 `path:"id"`
+	OASubButton {
+		Name     string `json:"name,optional"`
+		Id       int    `json:"id,optional"`
+		Type     string `json:"type,optional"`
+		Key      string `json:"key,omitempty,optional"`
+		Url      string `json:"url,omitempty,optional"`
+		AppID    string `json:"appid,omitempty,optional"`
+		PagePath string `json:"pagepath,omitempty,optional"`
 	}
 
-	EmployeeInfoReply {
-		EmployeeName string `form:"employeeName"`
+	OAButton {
+		Name        string         `json:"name,optional"`
+		Type        string         `json:"type,optional"`
+		Key         string         `json:"key,omitempty,optional"`
+		Url         string         `json:"url,omitempty,optional"`
+		AppID       string         `json:"appid,omitempty,optional"`
+		PagePath    string         `json:"pagepath,omitempty,optional"`
+		OASubButton []*OASubButton `json:"sub_button,optional"`
+		Id          int            `json:"id,optional"`
+	}
+
+	MatchRule {
+		TagId    string `json:"tag_id,optional"`
+		Sex      string `json:"sex,optional"`
+		Country  string `json:"country,optional"`
+		Province string `json:"province,optional"`
+		City     string `json:"city,optional"`
+		Language string `json:"language,optional"`
+	}
+	OAMenu {
+		Id        int64       `json:"id,optional"`
+		OAButton  []*OAButton `json:"button,optional"`
+		MatchRule *MatchRule  `json:"matchrule,optional"`
+	}
+)
+
+type (
+	SyncMenusRequest {
+		OAMenu
+	}
+
+	SyncMenusReply {
+		Success bool        `json:"success,optional"`
+		Data    interface{} `json:"data"`
+	}
+)
+
+type (
+	CreateMenuRequest {
+		OAMenu
+	}
+
+	CreateMenuReply {
+		Success bool        `json:"success,optional"`
+		Data    interface{} `json:"data"`
+	}
+)
+
+type (
+	QueryMenusReply {
+		Button    interface{} `json:"button"`
+		MatchRule interface{} `json:"matchrule"`
+	}
+)
+
+type (
+	DeleteMenuReply {
+		Success bool        `json:"success"`
+		Data    interface{} `json:"data"`
 	}
 )

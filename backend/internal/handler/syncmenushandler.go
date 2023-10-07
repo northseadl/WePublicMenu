@@ -3,22 +3,22 @@ package handler
 import (
 	"net/http"
 
-	"PluginTemplate/internal/logic"
-	"PluginTemplate/internal/svc"
-	"PluginTemplate/internal/types"
+	"WePublicMenu/internal/logic"
+	"WePublicMenu/internal/svc"
+	"WePublicMenu/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func EmployeeInfoHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func SyncMenusHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.EmployeeInfoRequest
+		var req types.SyncMenusRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewEmployeeInfoLogic(r.Context(), svcCtx)
-		resp, err := l.EmployeeInfo(&req)
+		l := logic.NewSyncMenusLogic(r.Context(), svcCtx)
+		resp, err := l.SyncMenus(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
