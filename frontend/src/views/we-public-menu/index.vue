@@ -192,7 +192,7 @@
               <!--              没有有二级菜单-->
               <div
                 v-if="
-                  (!isHaveSubMenu() && selectMenuId !== 0) ||
+                  (!isHaveSubMenu && selectMenuId !== 0) ||
                   selectMenuSubId !== 0
                 "
                 class="custom-no-have-menu-box"
@@ -287,7 +287,7 @@
               <!--              有二级菜单-->
               <div
                 v-if="
-                  isHaveSubMenu() && selectMenuId !== 0 && selectMenuSubId === 0
+                  isHaveSubMenu && selectMenuId !== 0 && selectMenuSubId === 0
                 "
                 class="custom-have-menu-box"
               >
@@ -343,7 +343,7 @@
 </template>
 
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { Message, Modal } from '@arco-design/web-vue';
   import { IconPlus } from '@arco-design/web-vue/es/icon';
   import {
@@ -587,17 +587,20 @@
   };
 
   // 是否包含二级菜单
-  const isHaveSubMenu = () => {
+  const isHaveSubMenu = computed(() => {
     if (menuData.value.button.length > 0) {
       const menuId = selectMenuId.value;
       const menu = menuData.value.button.find(
         (item: any) => item.id === menuId
       );
+      if (!menu) {
+        return false;
+      }
       // 如果存在二级菜单
       return menu.subButton && menu.subButton.length > 0;
     }
     return false;
-  };
+  });
 
   // 选择菜单
   const selectMenu = async (item: number) => {
@@ -799,11 +802,32 @@
     await selectMenu(nextId);
   };
 
-  const menuDataList = ref<GetOAMenuTreeReply>();
+  const toCamelCase = (str: string) => {
+    return str.replace(/([-_][a-z])/g, (group) =>
+      group.toUpperCase().replace('-', '').replace('_', '')
+    );
+  };
+
+  function convertKeysToCamelCase(obj: any): any {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => convertKeysToCamelCase(item));
+    }
+
+    if (typeof obj !== 'object' || obj === null) {
+      return obj;
+    }
+
+    const newObj = {} as any;
+    Object.keys(obj).forEach((key) => {
+      const camelCaseKey = toCamelCase(key);
+      newObj[camelCaseKey] = convertKeysToCamelCase(obj[key]);
+    });
+    return newObj;
+  }
 
   onMounted(async () => {
     const res = await getOAMenuTree();
-    menuDataList.value = res.data;
+    menuData.value = convertKeysToCamelCase(res.data);
   });
 </script>
 
